@@ -29,21 +29,24 @@ const dummyData = {
       title: 'Task 1',
       description: "Task 1's description",
       listId: 'c1c73b9d-7f17-46c8-92d4-74a726e75aa1',
-      labels: ['512fd8c3-d0c3-4a53-8504-753fbd4c0b31', 'fddb7209-7fac-456a-9973-159b56803483']
+      labels: ['512fd8c3-d0c3-4a53-8504-753fbd4c0b31', 'fddb7209-7fac-456a-9973-159b56803483'],
+      comments: ['d116b2e0-879d-4985-b330-84df0e99226f']
     },
     {
       id: '549c151c-cb78-4c3d-a524-7c2a30c13e6a',
       title: 'Task 2',
       description: "Task 2's description",
       listId: 'c1c73b9d-7f17-46c8-92d4-74a726e75aa1',
-      labels: ['6ef4d97d-25f8-4aa9-a416-4fa1b7f0eafe']
+      labels: ['6ef4d97d-25f8-4aa9-a416-4fa1b7f0eafe'],
+      comments: []
     },
     {
       id: 'f9f2569a-36c9-43ab-ba83-d00465d25710',
       title: 'In Progress 1',
       description: 'In progress description',
       listId: 'f5efa9ec-4ec7-4370-85e8-b31d1873c752',
-      labels: ['f81303a5-5a16-4302-91e0-e476e89748ad', '66b1ca45-f009-4bb3-a3a4-f39038035963', '512fd8c3-d0c3-4a53-8504-753fbd4c0b31']
+      labels: ['f81303a5-5a16-4302-91e0-e476e89748ad', '66b1ca45-f009-4bb3-a3a4-f39038035963', '512fd8c3-d0c3-4a53-8504-753fbd4c0b31'],
+      comments: []
     }
   ],
   labels: [
@@ -81,9 +84,10 @@ const dummyData = {
   comments: [
     {
       id: 'd116b2e0-879d-4985-b330-84df0e99226f',
-      cardId: 'c07d2ea6-b77f-4552-809d-4a47d812a548',
       message: 'Great job!',
-      emojis: ['😄', '❤️']
+      emojis: ['😄', '❤️'],
+      author: 'Luis Salcedo',
+      date: new Date()
     },
   ]
 }
