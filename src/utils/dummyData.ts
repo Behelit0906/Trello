@@ -1,4 +1,13 @@
-const dummyData = {
+// src/utils/dummyData.ts
+import { Board, List, Card, Label, Comment } from '../types/Types'
+
+const dummyData: {
+  boards: Board[],
+  lists: List[],
+  cards: Card[],
+  labels: Label[],
+  comments: Comment[]
+} = {
   boards: [
     {
       id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c752',
@@ -88,8 +97,8 @@ const dummyData = {
       emojis: ['😄', '❤️'],
       author: 'Luis Salcedo',
       date: new Date()
-    },
+    }
   ]
 }
 
-export default dummyData
+export default dummyData;
