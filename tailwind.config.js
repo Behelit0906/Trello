@@ -8,6 +8,9 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Roboto', 'sans-serif', 'Arial'],
+      },
+      colors: {
+        dark: '#1D2125',
       }
     },
   },
