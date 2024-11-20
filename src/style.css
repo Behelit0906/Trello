@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .dark-filter {
+    filter: brightness(0) saturate(100%) invert(66%) sepia(20%) saturate(225%) hue-rotate(170deg) brightness(101%) contrast(85%);  
+  }
+}
+
+@layer utilities {
+  .dynamic-filter {
+    filter: var(--dynamic-logo-filter);
+  }
+}
+
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.2s ease;
