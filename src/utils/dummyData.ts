@@ -12,12 +12,26 @@ const dummyData: {
     {
       id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c752',
       title: 'Board 1',
-      background: 'bg-1'
+      background: 'bg-1',
+      favorite: true
     },
     {
       id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c747',
       title: 'Board 2',
-      background: 'bg-2'
+      background: 'bg-2',
+      favorite: false
+    },
+    {
+      id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c743',
+      title: 'Board 3',
+      background: 'bg-3',
+      favorite: false
+    },
+    {
+      id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c744',
+      title: 'Board 4',
+      background: 'bg-4',
+      favorite: false
     }
   ],
   lists: [

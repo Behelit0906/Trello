@@ -1,7 +1,8 @@
 export interface Board {
   id: string,
   title: string,
-  background: string
+  background: string,
+  favorite: boolean
 }
 
 export interface List {
