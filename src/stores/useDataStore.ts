@@ -42,6 +42,29 @@ export const useDataStore = defineStore('dataStore', () => {
       saveDataToLocalStorage('boards', boards.value)
     }
   }
+
+  const setFavoritePropOfABoard = (boardId: string) => {
+    const currentPosition = boards.value.findIndex(b => b.id === boardId);
+    let newPosition = 0
+
+    if(boards.value[currentPosition].favorite) {
+      const board = boards.value.splice(currentPosition, 1)[0];
+      board.favorite = false;
+      boards.value.push(board)
+    }
+    else {
+      for (let i = 0; i < boards.value.length; i++) {
+        if(!boards.value[i].favorite) {
+          newPosition = i
+          break
+        }
+      }
+      const board = boards.value.splice(currentPosition, 1)[0];
+      board.favorite = true;
+      boards.value.splice(newPosition, 0, board);
+    }
+    saveDataToLocalStorage('boards', boards.value)
+  }
   
 
   return {
@@ -51,7 +74,8 @@ export const useDataStore = defineStore('dataStore', () => {
     labels,
     comments,
     selectedBoard,
-    setSelectedBoard
+    setSelectedBoard,
+    setFavoritePropOfABoard
   };
   
 });
