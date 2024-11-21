@@ -2,7 +2,8 @@ export interface Board {
   id: string,
   title: string,
   background: string,
-  favorite: boolean
+  favorite: boolean,
+  createdDate: Date
 }
 
 export interface List {
