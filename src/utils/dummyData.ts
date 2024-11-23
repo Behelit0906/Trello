@@ -10,32 +10,32 @@ const dummyData: {
 } = {
   boards: [
     {
+      id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c744',
+      title: 'Via láctea',
+      background: 'bg-4',
+      favorite: false,
+      createdDate: new Date('2024-01-01')
+    },
+    {
       id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c752',
-      title: 'Board 1',
+      title: 'Chica linda',
       background: 'bg-1',
-      favorite: true,
+      favorite: false,
       createdDate: new Date('2024-01-15')
     },
     {
-      id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c747',
-      title: 'Board 2',
-      background: 'bg-2',
-      favorite: false,
-      createdDate: new Date('2024-01-19')
-    },
-    {
       id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c743',
-      title: 'Board 3',
+      title: 'Montañas',
       background: 'bg-3',
       favorite: false,
       createdDate: new Date('2024-01-16')
     },
     {
-      id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c744',
-      title: 'Board 4',
-      background: 'bg-4',
+      id: 'f5efa9ec-4ec7-4370-85e8-b31d1873c747',
+      title: 'Cielo estrellado',
+      background: 'bg-2',
       favorite: false,
-      createdDate: new Date('2024-01-01')
+      createdDate: new Date('2024-01-19')
     }
   ],
   lists: [
