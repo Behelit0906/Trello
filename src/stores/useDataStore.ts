@@ -65,6 +65,38 @@ export const useDataStore = defineStore('dataStore', () => {
     }
     saveDataToLocalStorage('boards', boards.value)
   }
+
+  const sortingBoards = (criteria: string) => {
+    const findFirstNonFavorite = () => {
+      for (let i = 0; i < boards.value.length; i++) {
+        if (!boards.value[i].favorite) {
+          return i
+        }
+      }
+      return -1
+    }
+
+    
+    const firstNonFavorite = findFirstNonFavorite()
+
+    if (firstNonFavorite >= 0 && firstNonFavorite < boards.value.length - 1) {
+      // Extraer elementos a ordenar
+      const elementsToSort = boards.value.splice(firstNonFavorite, boards.value.length - firstNonFavorite);
+
+      if (criteria === 'Sort alphabetically') {
+        elementsToSort.sort((a, b) => {
+          const nameA = a.title.toLocaleLowerCase()
+          const nameB = b.title.toLocaleLowerCase()
+          return nameA < nameB ? -1 : nameA > nameB ? 1 : 0
+        });
+      } else if (criteria === 'Sort by most recent') {
+        elementsToSort.sort((a, b) => a.createdDate.getTime() - b.createdDate.getTime())
+      }
+
+      boards.value = [...boards.value, ...elementsToSort]
+      saveDataToLocalStorage('boards', boards.value)
+    }
+  }
   
 
   return {
@@ -75,7 +107,8 @@ export const useDataStore = defineStore('dataStore', () => {
     comments,
     selectedBoard,
     setSelectedBoard,
-    setFavoritePropOfABoard
+    setFavoritePropOfABoard,
+    sortingBoards
   };
   
 });
