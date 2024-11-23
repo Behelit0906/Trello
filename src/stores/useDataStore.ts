@@ -5,16 +5,34 @@ import { Board, List, Card, Label, Comment  } from '../types/Types'
 
 export const useDataStore = defineStore('dataStore', () => {
   
-  const getDataFromLocalStorage = <T>(key: string, defaultData: T): T => {
+  const getDataFromLocalStorage = <T>(key: string, defaultData: T, dateFields: string[] = []): T => {
     const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : defaultData;
+    if (!data) {
+      return defaultData;
+    }
+  
+    const parsedData = JSON.parse(data);
+  
+    // Convertir cadenas a Date si hay campos específicos
+    if (dateFields.length > 0) {
+      return parsedData.map((item: any) => {
+        dateFields.forEach(field => {
+          if (item[field]) {
+            item[field] = new Date(item[field]);
+          }
+        });
+        return item;
+      });
+    }
+  
+    return parsedData;
   };
 
   const saveDataToLocalStorage = <T>(key: string, data: T) => {
     localStorage.setItem(key, JSON.stringify(data))
   }
 
-  const boards = ref<Board[]>(getDataFromLocalStorage<Board[]>('boards', dummyData.boards));
+  const boards = ref<Board[]>(getDataFromLocalStorage<Board[]>('boards', dummyData.boards, ["createdDate"]));
   const lists = ref<List[]>(getDataFromLocalStorage<List[]>('lists', dummyData.lists));
   const cards = ref<Card[]>(getDataFromLocalStorage<Card[]>('cards', dummyData.cards));
   const labels = ref<Label[]>(getDataFromLocalStorage<Label[]>('labels', dummyData.labels));
