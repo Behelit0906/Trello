@@ -115,6 +115,15 @@ export const useDataStore = defineStore('dataStore', () => {
       saveDataToLocalStorage('boards', boards.value)
     }
   }
+
+  const deleteBoard = (boardId:string) => {
+    const index = boards.value.findIndex(b => b.id === boardId)
+    if(index >= 0) {
+      boards.value.splice(index, 1)
+      saveDataToLocalStorage('boards', boards.value)
+    }
+  }
+  
   
 
   return {
@@ -126,7 +135,8 @@ export const useDataStore = defineStore('dataStore', () => {
     selectedBoard,
     setSelectedBoard,
     setFavoritePropOfABoard,
-    sortingBoards
+    sortingBoards,
+    deleteBoard
   };
   
 });
