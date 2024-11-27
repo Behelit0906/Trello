@@ -1,48 +1,20 @@
 import { defineStore } from 'pinia'
 import dummyData from '../utils/dummyData'
-import { ref } from 'vue'
 import { Board, List, Card, Label, Comment  } from '../types/Types'
+import { useStorage } from '../composables/useStorage'
 
 export const useDataStore = defineStore('dataStore', () => {
   
-  const getDataFromLocalStorage = <T>(key: string, defaultData: T, dateFields: string[] = []): T => {
-    const data = localStorage.getItem(key);
-    if (!data) {
-      return defaultData;
-    }
-  
-    const parsedData = JSON.parse(data);
-  
-    // Convertir cadenas a Date si hay campos específicos
-    if (dateFields.length > 0) {
-      return parsedData.map((item: any) => {
-        dateFields.forEach(field => {
-          if (item[field]) {
-            item[field] = new Date(item[field]);
-          }
-        });
-        return item;
-      });
-    }
-  
-    return parsedData;
-  };
-
-  const saveDataToLocalStorage = <T>(key: string, data: T) => {
-    localStorage.setItem(key, JSON.stringify(data))
-  }
-
-  const boards = ref<Board[]>(getDataFromLocalStorage<Board[]>('boards', dummyData.boards, ["createdDate"]));
-  const lists = ref<List[]>(getDataFromLocalStorage<List[]>('lists', dummyData.lists));
-  const cards = ref<Card[]>(getDataFromLocalStorage<Card[]>('cards', dummyData.cards));
-  const labels = ref<Label[]>(getDataFromLocalStorage<Label[]>('labels', dummyData.labels));
-  const comments = ref<Comment[]>(getDataFromLocalStorage<Comment[]>('comments', dummyData.comments));
-  const selectedBoard = ref(localStorage.getItem('selectedBoard') ? localStorage.getItem('selectedBoard') : '')
+  const boards = useStorage<Board[]>('boards', dummyData.boards)
+  const lists = useStorage<List[]>('lists', dummyData.lists)
+  const cards = useStorage<Card[]>('cards', dummyData.cards)
+  const labels = useStorage<Label[]>('labels', dummyData.labels)
+  const comments = useStorage<Comment[]>('comments', dummyData.comments)
+  const selectedBoard = useStorage<string>('selectedBoard', dummyData.boards[0].id)
 
 
   const setSelectedBoard = (boarId: string) => {
     selectedBoard.value = boarId
-    localStorage.setItem('selectedBoard', boarId)
     const index = boards.value.findIndex(b => b.id === boarId);
     
     let validPosition = 0
@@ -57,7 +29,6 @@ export const useDataStore = defineStore('dataStore', () => {
     if (index && !boards.value[index].favorite) {
       const board = boards.value.splice(index, 1)[0];
       boards.value.splice(validPosition, 0, board);
-      saveDataToLocalStorage('boards', boards.value)
     }
   }
 
@@ -81,7 +52,6 @@ export const useDataStore = defineStore('dataStore', () => {
       board.favorite = true;
       boards.value.splice(newPosition, 0, board);
     }
-    saveDataToLocalStorage('boards', boards.value)
   }
 
   const sortingBoards = (criteria: string) => {
@@ -108,11 +78,15 @@ export const useDataStore = defineStore('dataStore', () => {
           return nameA < nameB ? -1 : nameA > nameB ? 1 : 0
         });
       } else if (criteria === 'Sort by most recent') {
-        elementsToSort.sort((a, b) => a.createdDate.getTime() - b.createdDate.getTime())
+        elementsToSort.sort((a, b) => {
+          const aDate = new Date(a.createdDate)
+          const bDate = new Date(b.createdDate)
+
+          return aDate.getTime() - bDate.getTime()
+        })
       }
 
       boards.value = [...boards.value, ...elementsToSort]
-      saveDataToLocalStorage('boards', boards.value)
     }
   }
 
@@ -120,12 +94,9 @@ export const useDataStore = defineStore('dataStore', () => {
     const index = boards.value.findIndex(b => b.id === boardId)
     if(index >= 0) {
       boards.value.splice(index, 1)
-      saveDataToLocalStorage('boards', boards.value)
     }
   }
   
-  
-
   return {
     boards,
     lists,
@@ -136,7 +107,7 @@ export const useDataStore = defineStore('dataStore', () => {
     setSelectedBoard,
     setFavoritePropOfABoard,
     sortingBoards,
-    deleteBoard
+    deleteBoard,
   };
   
 });
