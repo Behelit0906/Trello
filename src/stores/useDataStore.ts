@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import dummyData from '../utils/dummyData'
 import { Board, List, Card, Label, Comment  } from '../types/Types'
+import { nanoid } from 'nanoid'
 import { useStorage } from '../composables/useStorage'
 
 export const useDataStore = defineStore('dataStore', () => {
@@ -96,6 +97,37 @@ export const useDataStore = defineStore('dataStore', () => {
       boards.value.splice(index, 1)
     }
   }
+
+  const createBoard = (title: string, bg: string) => {
+    const newBoard: Board = {
+      id: nanoid(),
+      title,
+      background: bg,
+      favorite: false,
+      createdDate: new Date()
+    }
+    selectedBoard.value = newBoard.id
+
+    if(boards.value.length === 0) {
+      boards.value.push(newBoard)
+    }
+    else {
+      let position = 0
+      for(let i = 0; i < boards.value.length; i++) {
+        if(!boards.value[i].favorite) {
+          position = i
+          break
+        }
+      }
+
+      if(position > 0) {
+        boards.value.splice(position, 0, newBoard)
+      }
+      else {
+        boards.value.push(newBoard)
+      }
+    }
+  }
   
   return {
     boards,
@@ -108,6 +140,7 @@ export const useDataStore = defineStore('dataStore', () => {
     setFavoritePropOfABoard,
     sortingBoards,
     deleteBoard,
+    createBoard
   };
   
 });
