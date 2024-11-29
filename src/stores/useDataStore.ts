@@ -3,6 +3,7 @@ import dummyData from '../utils/dummyData'
 import { Board, List, Card, Label, Comment  } from '../types/Types'
 import { nanoid } from 'nanoid'
 import { useStorage } from '../composables/useStorage'
+import { watch } from 'vue'
 
 export const useDataStore = defineStore('dataStore', () => {
   
@@ -12,6 +13,7 @@ export const useDataStore = defineStore('dataStore', () => {
   const labels = useStorage<Label[]>('labels', dummyData.labels)
   const comments = useStorage<Comment[]>('comments', dummyData.comments)
   const selectedBoard = useStorage<string>('selectedBoard', dummyData.boards[0].id)
+  const sortingOption = useStorage('sortingOption', 'Sort by most recent')
 
 
   const setSelectedBoard = (boarId: string) => {
@@ -55,7 +57,7 @@ export const useDataStore = defineStore('dataStore', () => {
     }
   }
 
-  const sortingBoards = (criteria: string) => {
+  const sortingBoards = () => {
     const findFirstNonFavorite = () => {
       for (let i = 0; i < boards.value.length; i++) {
         if (!boards.value[i].favorite) {
@@ -72,18 +74,18 @@ export const useDataStore = defineStore('dataStore', () => {
       // Extraer elementos a ordenar
       const elementsToSort = boards.value.splice(firstNonFavorite, boards.value.length - firstNonFavorite);
 
-      if (criteria === 'Sort alphabetically') {
+      if (sortingOption.value === 'Sort alphabetically') {
         elementsToSort.sort((a, b) => {
           const nameA = a.title.toLocaleLowerCase()
           const nameB = b.title.toLocaleLowerCase()
           return nameA < nameB ? -1 : nameA > nameB ? 1 : 0
         });
-      } else if (criteria === 'Sort by most recent') {
+      } else if (sortingOption.value === 'Sort by most recent') {
         elementsToSort.sort((a, b) => {
           const aDate = new Date(a.createdDate)
           const bDate = new Date(b.createdDate)
 
-          return aDate.getTime() - bDate.getTime()
+          return bDate.getTime() - aDate.getTime() 
         })
       }
 
@@ -128,6 +130,8 @@ export const useDataStore = defineStore('dataStore', () => {
       }
     }
   }
+
+  watch(sortingOption, sortingBoards, { immediate: true })
   
   return {
     boards,
@@ -138,9 +142,9 @@ export const useDataStore = defineStore('dataStore', () => {
     selectedBoard,
     setSelectedBoard,
     setFavoritePropOfABoard,
-    sortingBoards,
     deleteBoard,
-    createBoard
+    createBoard,
+    sortingOption
   };
   
 });
