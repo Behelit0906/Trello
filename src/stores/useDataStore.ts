@@ -109,29 +109,11 @@ export const useDataStore = defineStore('dataStore', () => {
       createdDate: new Date()
     }
     selectedBoard.value = newBoard.id
-
-    if(boards.value.length === 0) {
-      boards.value.push(newBoard)
-    }
-    else {
-      let position = 0
-      for(let i = 0; i < boards.value.length; i++) {
-        if(!boards.value[i].favorite) {
-          position = i
-          break
-        }
-      }
-
-      if(position > 0) {
-        boards.value.splice(position, 0, newBoard)
-      }
-      else {
-        boards.value.push(newBoard)
-      }
-    }
+    boards.value.push(newBoard)
+    sortingBoards()
   }
 
-  watch(sortingOption, sortingBoards, { immediate: true })
+  watch(sortingOption, sortingBoards)
   
   return {
     boards,
