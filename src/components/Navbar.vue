@@ -1,11 +1,11 @@
 <template>
-  <nav ref="element" class="flex justify-between items-center p-2 backdrop-blur-[200px] border-b border-white border-opacity-20 text-white text-sm dark:bg-dark">
+  <nav ref="element" class="flex justify-between items-center bg-navbar dark:bg-dark p-2 border-b border-white border-opacity-20 text-white text-sm ">
     <div class="flex gap-1">
-      <button title="More from Atlassian" class="flex justify-center items-center w-8 h-8 rounded-[3px] hover:bg-[#ffffff33]">
+      <button title="More from Atlassian" class="flex justify-center items-center w-8 h-8 rounded-[3px] hover:bg-[#ffffff33] dynamic-filter dark:dark-filter">
         <Icon icon="mdi:dots-grid" width="20" height="20" style="color: white" />
       </button>
       <a href="/" class="block h-8 px-2 relative hover:bg-[#ffffff33] rounded-[3px]">
-        <div class="w-[75px] h-4 py-2 trello-icon"></div>
+        <div class="w-[75px] h-4 py-2 trello-icon dynamic-filter dark:dark-filter"></div>
       </a>
     </div>
     <button @click="toggleModal" class="w-8 h-8 flex justify-center items-center rounded-full hover:bg-[#ffffff33]" title="Account">
@@ -23,6 +23,7 @@
 import { Icon } from '@iconify/vue'
 import AsyncAccountModal from './AsyncAccountModal'
 import { ref } from 'vue'
+
 
 const show = ref(false)
 
