@@ -1,14 +1,14 @@
 <template>
   <nav>
     <Transition name="fade" mode="out-in">
-      <div v-if="collapseSideBar" class="dark:text-textDark dark:bg-dark bg-sidenavbar border-r border-[#ffffff29] transition-all relative" >
+      <div v-if="collapseSideBar" class="dark:text-textDark dark:bg-dark bg-sidenavbar border-r border-[#ffffff29] transition-all relative h-screen w-fit" >
         <button @click="switcher" class="relative w-4 h-screen">
           <span class="absolute flex items-center justify-center top-1 -right-3 w-[26px] h-[26px] dark:bg-dark bg-sidenavbar rounded-full border border-[#ffffff29]">
             <Icon icon="weui:arrow-filled" width="20" height="20" class="dark:text-textDark text-dynamicTextColor"/>
           </span>
         </button>
       </div>
-      <div v-else class="w-[260px] h-full flex flex-col text-dynamicTextColor dark:text-textDark dark:bg-dark bg-sidenavbar border-r border-[#ffffff29] transition-all">
+      <div v-else class="w-[260px] h-screen flex flex-col text-dynamicTextColor dark:text-textDark dark:bg-dark bg-sidenavbar border-r border-[#ffffff29] transition-all">
         <div class="flex items-center gap-2 px-3 py-2 mb-5 h-[57px] border-b-[0.5px] border-[#ffffff29]">
           <div class="flex justify-center dark:text-dark items-center w-8 h-8 rounded bg-gradient-to-r from-[#1F845A] to-[#4BCE97] shrink-0">
             T
