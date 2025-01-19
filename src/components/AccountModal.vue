@@ -1,19 +1,19 @@
 <template>
-  <div ref="element" class="absolute flex flex-col gap-2 w-[304px] py-6 top-12 right-1 text-[#626F86] bg-white rounded-lg shadow-sm">
+  <div ref="element" class="absolute flex flex-col gap-2 w-[304px] py-6 top-12 right-1 text-[#626F86] bg-white dark:bg-dark rounded-lg shadow-sm">
     <div class="px-3">
       <div class="flex flex-col gap-3 pb-4 px-2 border-b border-slate-200">
-        <h2 class="text-[11px]">ACCOUNT</h2>
+        <h2 class="text-[11px] dark:text-textDark">ACCOUNT</h2>
         <div class="flex gap-2 items-center text-xs text-[#626F86]">
           <span class="flex justify-center items-center w-10 h-10 text-base text-[#143758] font-bold bg-[#00A3BF] rounded-full">LS</span>
           <div class="flex flex-col gap-[2px]">
-            <p>Luis Salcedo</p>
-            <p>luis.salcedo0906@gmail.com</p>
+            <p class="dark:text-textDark">Luis Salcedo</p>
+            <p class="dark:text-textDark">luis.salcedo0906@gmail.com</p>
           </div>
         </div>
       </div>
     </div>
     <div>
-      <h2 class="flex items-center pl-5 h-9 text-[11px]">TRELLO</h2>
+      <h2 class="flex items-center pl-5 h-9 text-[11px] dark:text-textDark">TRELLO</h2>
       <ul>
         <li>
           <button 
@@ -42,12 +42,12 @@ import { onClickOutside } from '@vueuse/core'
 const emit = defineEmits(['close'])
 
 
-const colorClass = ref('hover:bg-[#0000001a]');
+const colorClass = ref('hover:bg-[#0000001a] dark:text-textDark');
 const show = ref(false)
 const element = ref(null)
 
 const clickHandler = () => {
-  colorClass.value = colorClass.value === 'hover:bg-[#0000001a]' ? 'text-[#0C66E4] bg-[#E9F2FF]' : 'hover:bg-[#0000001a]'
+  colorClass.value = colorClass.value === 'hover:bg-[#0000001a] dark:text-textDark' ? 'text-[#0C66E4] bg-[#E9F2FF] dark:bg-[#1C2B41] dark:text-[#579dff]' : 'hover:bg-[#0000001a] dark:text-textDark'
   show.value = !show.value
 }
 
